@@ -15,9 +15,6 @@ const closeBtn = document.querySelector(".close");
 const submitBtn = document.querySelector(".btn-submit");
 const form = document.querySelector("form");
 
-const error = document.getElementsByClassName("error");
-
-
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
@@ -38,11 +35,18 @@ function closeModal() {
 form.addEventListener("submit", function validate (e) {
   e.preventDefault();
   const inputs = form.querySelectorAll("input");
+  
+  const closeBtnRed = document.getElementById("closeBtnRed");
+  
+
   checkInputs();
 
-  /*if(inputs === true){
+ /* if(inputs === true){
     blabla.textContent = "Merci ! Votre réservation a été reçue.";
     blabla.style ??
+    closeBtnRed.style.display = "none";
+
+
   } else { 
     e.preventDefault();
     checkInputs()
@@ -100,10 +104,10 @@ function checkInputs(){
     email.style = "default";
   };
 
-  const birthdate = document.getElementById("birthdate");
+  const birthdate = document.getElementById("birthdate"); 
   const birthdateError = document.getElementById("birthdateError");
 
-  if(!isValidDate(birthdate.value)) {
+  if(!birthdate.value) {
     birthdateError.textContent =  "Veuillez entrer votre date de naissance";
     birthdateError.style.color = "red";
     birthdateError.style.fontSize = "10px";
@@ -118,38 +122,43 @@ function checkInputs(){
   const quantity = document.getElementById("quantity");
   const quantityError = document.getElementById("quantityError");
 
-  if(quantity.value === "" || quantity.value!= Number) {
+  if(quantity.value === "" || quantity.value == NaN) {
     quantityError.textContent = "Veuillez renseigner ce champ";
+    quantityError.style.color = "red";
+    quantityError.style.fontSize = "10px";
+    quantity.style.borderColor = "red";
+    quantity.style.borderWidth = "2px";
     return false;
   } else {
     quantityError.style.display = "none";
     quantity.style = "default";
   };
 
-  const location = document.querySelector("input[type=radio]:checked");
+  const location = document.getElementsByName("location");
   const locationError = document.getElementById("locationError");
 
-
-  if(location != selected) {
-    quantityError.textContent = "Veuillez choisir une option";
+  if(!(location[0].checked || location[1].checked || location[2].checked || location[3].checked || location[4].checked || location[5].checked)) {
+    locationError.textContent = "Veuillez choisir une option";
+    locationError.style.color = "red";
+    locationError.style.fontSize = "10px";
     return false;
   } else {
     locationError.style.display = "none";
     location.style = "default";
   };
 
-  const checkbox1 = document.getElementById("checkbox1");
-  const checkbox1Error = document.getElementById("checkbox1Error");
+  const conditions = document.getElementById("checkbox1");
+  const conditionsError = document.getElementById("conditionsError");
 
-  if(checkbox1 != checked) { 
-    checkbox1Error.textContent = "Veuillez vérifier que vous avez accepté les termes et conditions";
-    checkbox1Error.style.color = "red";
-    checkbox1Error.style.fontSize = "10px";
-    checkbox1.style.borderColor = "red";
-    checkbox1.style.borderWidth = "2px";
+  if(!conditions.checked) { 
+    conditionsError.textContent = "Veuillez vérifier que vous avez accepté les termes et conditions";
+    conditionsError.style.color = "red";
+    conditionsError.style.fontSize = "10px";
+    conditions.style.borderColor = "red";
+    conditions.style.borderWidth = "2px";
     return false;
   } else {
-    checkbox1Error.style.display = "none";
-    checkbox1.style = "default";
+    conditionsError.style.display = "none";
+    conditions.style = "default";
   };
 }
