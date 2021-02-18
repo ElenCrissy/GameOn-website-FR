@@ -60,7 +60,7 @@ function closeModal() {
 closeBtnRed.style.display = "none";
 confirmationMsg.style.display = "none";
 
-let formOk = true;
+let formOk = false;
 
 function checkInputs(){
   
@@ -70,7 +70,7 @@ function checkInputs(){
     firstError.style.fontSize = "10px";
     first.style.borderColor = "red";
     first.style.borderWidth = "2px";
-    return formOk = false;
+    return formOk === false;
   } else {
     firstError.style.display = "none";
     first.style = "default";
@@ -146,15 +146,13 @@ function checkInputs(){
     conditionsError.style.display = "none";
     conditions.style = "default";
   }
+  return formOk = true;
 };
 
 function validate(event){
+  event.preventDefault();
   checkInputs();
-  //if(!(first === false && last === false && email === false && birthdate === false && quantity === false && location2 === false && conditions === false)){
-  //if(first === false || last === false || email === false || birthdate === false || quantity === false || location2 === false || conditions === false) { 
-  if(formOk = false) {
-    event.preventDefault();
-  } else { 
+  if(formOk === true) { 
     confirmationMsg.style.fontSize = "36px";
     confirmationMsg.style.textAlign = "center";
 
