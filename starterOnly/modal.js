@@ -14,6 +14,31 @@ const formData = document.querySelectorAll(".formData");
 const closeBtn = document.querySelector(".close");
 const submitBtn = document.querySelector(".btn-submit");
 const form = document.querySelector("form");
+const closeBtnRed = document.getElementById("closeBtnRed");
+const confirmationMsg = document.getElementById("confirmationMsg");
+
+const first = document.getElementById("first");
+const firstError = document.getElementById("firstError");
+
+const last = document.getElementById("last");
+const lastError = document.getElementById("lastError");
+
+const email = document.getElementById("email");
+const emailError = document.getElementById("emailError");
+
+const birthdate = document.getElementById("birthdate"); 
+const birthdateError = document.getElementById("birthdateError");
+
+const quantity = document.getElementById("quantity");
+const quantityError = document.getElementById("quantityError");
+
+const location2 = document.getElementsByName("location");
+const locationError = document.getElementById("locationError");
+
+const conditions = document.getElementById("checkbox1");
+const conditionsError = document.getElementById("conditionsError");
+
+
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -32,33 +57,30 @@ function closeModal() {
 }
 
 //#2 validation for submit
-form.addEventListener("submit", function validate (e) {
+closeBtnRed.style.display = "none";
+confirmationMsg.style.display = "none";
+
+form.addEventListener("submit", validate);
+
+function validate(e){
   e.preventDefault();
-  const inputs = form.querySelectorAll("input");
-  
-  const closeBtnRed = document.getElementById("closeBtnRed");
-  
-
   checkInputs();
+  if(first === true && last === true && email === true && birthdate === true && quantity === true && location2 === true && conditions === true){
+    confirmationMsg.style.fontSize = "36px";
+    confirmationMsg.style.textAlign = "center";
 
- /* if(inputs === true){
-    blabla.textContent = "Merci ! Votre réservation a été reçue.";
-    blabla.style ??
-    closeBtnRed.style.display = "none";
-
+    closeBtnRed.style.display = "block";
+    submitBtn.style.display = "none";
+    confirmationMsg.style.display = "block";
+    return true;
 
   } else { 
-    e.preventDefault();
-    checkInputs()
-  }*/
-
-});
-
+    checkInputs();
+    return false;
+  }
+};
 
 function checkInputs(){
-  
-  const first = document.getElementById("first");
-  const firstError = document.getElementById("firstError");
   
   if(first.value === "" || first.length < 2) {
     firstError.textContent = "Veuillez entrer 2 caractères minimum";
@@ -66,14 +88,11 @@ function checkInputs(){
     firstError.style.fontSize = "10px";
     first.style.borderColor = "red";
     first.style.borderWidth = "2px";
-    return false;
+    return first === false;
   } else {
     firstError.style.display = "none";
     first.style = "default";
-  };
-  
-  const last = document.getElementById("last");
-  const lastError = document.getElementById("lastError");
+  }
 
   if(last.value === "" || last.length < 2) {
     lastError.textContent = "Veuillez entrer 2 caractères minimum";
@@ -81,31 +100,24 @@ function checkInputs(){
     lastError.style.fontSize = "10px";
     last.style.borderColor = "red";
     last.style.borderWidth = "2px";
-    return false;
+    return last === false;
   }  else {
     lastError.style.display = "none";
     last.style = "default";
-  };
-  
-  const email = document.getElementById("email");
-  const emailError = document.getElementById("emailError");
+  }
 
   var verifEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
-  
-  if(verifEmail.exec(email.value) == null) {
+  if(verifEmail.exec(email.value) === null) {
     emailError.textContent = "Veuillez renseigner votre adresse mail";
     emailError.style.color = "red";
     emailError.style.fontSize = "10px";
     email.style.borderColor = "red";
     email.style.borderWidth = "2px";
-    return false;
+    return email === false;
   } else {
     emailError.style.display = "none";
     email.style = "default";
-  };
-
-  const birthdate = document.getElementById("birthdate"); 
-  const birthdateError = document.getElementById("birthdateError");
+  }
 
   if(!birthdate.value) {
     birthdateError.textContent =  "Veuillez entrer votre date de naissance";
@@ -113,14 +125,11 @@ function checkInputs(){
     birthdateError.style.fontSize = "10px";
     birthdate.style.borderColor = "red";
     birthdate.style.borderWidth = "2px";
-    return false;
+    return birthdate === false;
   } else {
     birthdateError.style.display = "none";
     birthdate.style = "default";
-  };
-
-  const quantity = document.getElementById("quantity");
-  const quantityError = document.getElementById("quantityError");
+  }
 
   if(quantity.value === "" || quantity.value == NaN) {
     quantityError.textContent = "Veuillez renseigner ce champ";
@@ -128,27 +137,21 @@ function checkInputs(){
     quantityError.style.fontSize = "10px";
     quantity.style.borderColor = "red";
     quantity.style.borderWidth = "2px";
-    return false;
+    return quantity === false;
   } else {
     quantityError.style.display = "none";
     quantity.style = "default";
-  };
+  }
 
-  const location = document.getElementsByName("location");
-  const locationError = document.getElementById("locationError");
-
-  if(!(location[0].checked || location[1].checked || location[2].checked || location[3].checked || location[4].checked || location[5].checked)) {
+  if(!(location2[0].checked || location2[1].checked || location2[2].checked || location2[3].checked || location2[4].checked || location2[5].checked)) {
     locationError.textContent = "Veuillez choisir une option";
     locationError.style.color = "red";
     locationError.style.fontSize = "10px";
-    return false;
+    return location2 === false;
   } else {
     locationError.style.display = "none";
-    location.style = "default";
-  };
-
-  const conditions = document.getElementById("checkbox1");
-  const conditionsError = document.getElementById("conditionsError");
+    location2.style = "default";
+  }
 
   if(!conditions.checked) { 
     conditionsError.textContent = "Veuillez vérifier que vous avez accepté les termes et conditions";
@@ -156,9 +159,9 @@ function checkInputs(){
     conditionsError.style.fontSize = "10px";
     conditions.style.borderColor = "red";
     conditions.style.borderWidth = "2px";
-    return false;
+    return conditions === false;
   } else {
     conditionsError.style.display = "none";
     conditions.style = "default";
-  };
+  }
 }
