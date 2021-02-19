@@ -56,14 +56,17 @@ function closeModal() {
   modalbg.style.display = "none";
 }
 
-//#2 validation for submit
+// button close and confirmation text not displayed
 closeBtnRed.style.display = "none";
 confirmationMsg.style.display = "none";
 
 let formOk = false;
 
+// inputs check + error message and its style
 function checkInputs(){
   
+  // if first.value is empty or first lenght is less than 2 characters
+  // then error message is displayed
   if(first.value === "" || first.length < 2) {
     firstError.textContent = "Veuillez entrer 2 caractères minimum";
     firstError.style.color = "red";
@@ -88,6 +91,7 @@ function checkInputs(){
     last.style = "default";
   }
 
+  // regex for email address
   var verifEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
   if(verifEmail.exec(email.value) === null) {
     emailError.textContent = "Veuillez renseigner votre adresse mail";
@@ -113,6 +117,7 @@ function checkInputs(){
     birthdate.style = "default";
   }
 
+  // if quantity.value is empty or its value is not a number => error
   if(quantity.value === "" || quantity.value == NaN) {
     quantityError.textContent = "Veuillez renseigner ce champ";
     quantityError.style.color = "red";
@@ -125,6 +130,7 @@ function checkInputs(){
     quantity.style = "default";
   }
 
+  //if one of the option is not checked => error
   if(!(location2[0].checked || location2[1].checked || location2[2].checked || location2[3].checked || location2[4].checked || location2[5].checked)) {
     locationError.textContent = "Veuillez choisir une option";
     locationError.style.color = "red";
@@ -149,10 +155,19 @@ function checkInputs(){
   return formOk = true;
 };
 
+
+// function called at form submit event
 function validate(event){
+
+  // default behavior of submit event is avoided
   event.preventDefault();
+  // run checkInputs function instead
   checkInputs();
-  if(formOk === true) { 
+
+  // all fields must be true so the form can be submitted correctly
+  // if so, confirmation text and red close button are displayed
+  if(formOk === true) {
+    form.style.visibility = "hidden"; 
     confirmationMsg.style.fontSize = "36px";
     confirmationMsg.style.textAlign = "center";
 
@@ -162,8 +177,10 @@ function validate(event){
     closeBtnRed.addEventListener("click", closeModal);
     return true;
   }
+
+
 };
 
-
+// listening submit event on form element so function validate is run
 form.addEventListener("submit", validate);
 
