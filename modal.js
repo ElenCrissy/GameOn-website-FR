@@ -43,6 +43,11 @@ const conditionsError = document.getElementById("conditionsError");
 const heroSection = document.querySelector('.hero-section');
 
 
+// variable mobile media query
+let mediaQueryMobile = window.matchMedia("(max-width: 540px)");
+
+
+
 
 
 // launch modal event
@@ -51,13 +56,10 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
-  // variable mobile media query
-  let mediaQueryMobile = window.matchMedia("(max-width: 540px)");
   // if mobile screen, heroSection doesn't appear
   if(mediaQueryMobile.matches){
     heroSection.style.display = "none";
   }
-
 }
 
 // close modal event
@@ -65,7 +67,9 @@ closeBtn.addEventListener("click", closeModal);
 // close modal form
 function closeModal() {
   modalbg.style.display = "none";
-  heroSection.style.display = "block";
+  if(mediaQueryMobile.matches){
+    heroSection.style.display = "block";
+  }
 }
 
 // button close and confirmation message not displayed
