@@ -46,8 +46,12 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
+  //header should be displayed when media query mobile !!!!!!!!!!!!!!!!!!!!!!!
+  let myTopnav = document.getElementById('myTopnav');
+  if(window.matchMedia("(max-width:540px)").matches) {
+    myTopnav.style.display = "block";
+  }
 }
-
 
 //#1 close modal event
 closeBtn.addEventListener("click", closeModal);
@@ -65,9 +69,10 @@ let formOk = false;
 // inputs check + error message and its style
 function checkInputs(){
   
-  // if first.value is empty or first lenght is less than 2 characters
+  // if first.value is empty and doesn't respect regex name, or first lenght is less than 2 characters
   // then error message is displayed
-  if(first.value === "" || first.length < 2) {
+  let verifName = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/;
+  if(verifName.exec(first.value) === null || first.length < 2) {
     firstError.textContent = "Veuillez entrer 2 caractères minimum";
     firstError.style.color = "red";
     firstError.style.fontSize = "10px";
@@ -79,7 +84,7 @@ function checkInputs(){
     first.style = "default";
   }
 
-  if(last.value === "" || last.length < 2) {
+  if(verifName.exec(last.value) === null || last.length < 2) {
     lastError.textContent = "Veuillez entrer 2 caractères minimum";
     lastError.style.color = "red";
     lastError.style.fontSize = "10px";
@@ -92,7 +97,7 @@ function checkInputs(){
   }
 
   // regex for email address
-  var verifEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+  let verifEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
   if(verifEmail.exec(email.value) === null) {
     emailError.textContent = "Veuillez renseigner votre adresse mail";
     emailError.style.color = "red";
@@ -118,7 +123,7 @@ function checkInputs(){
   }
 
   // if quantity.value is empty or its value is not a number => error
-  if(quantity.value === "" || quantity.value == NaN) {
+  if(quantity.value === "" || isNaN(quantity.value)) {
     quantityError.textContent = "Veuillez renseigner ce champ";
     quantityError.style.color = "red";
     quantityError.style.fontSize = "10px";
@@ -153,8 +158,20 @@ function checkInputs(){
     conditions.style = "default";
   }
   return formOk = true;
-};
+}
 
+// focus on next input when key 13 pressed !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+document.querySelectorAll('input').forEach( input => {
+  input.addEventListener('keypress', e => {
+      if(e.keypress === 13) {
+          let nextEl = input.nextElementSibling;
+          console.log(nextEl)
+          if(nextEl.nodeName === 'input') {
+              nextEl.focus();
+          }
+      }
+  });
+});
 
 // function called at form submit event
 function validate(event){
@@ -177,9 +194,7 @@ function validate(event){
     closeBtnRed.addEventListener("click", closeModal);
     return true;
   }
-
-
-};
+}
 
 // listening submit event on form element so function validate is run
 form.addEventListener("submit", validate);

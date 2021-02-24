@@ -52,54 +52,33 @@ img {
   font-family: Roboto, sans-serif;
 }
 
+.main-navbar span:hover{
+  border-bottom: 2px solid white;
+}
+
 .topnav a:hover {
   background-color: #ff0000;
   color: #ffffff;
   border-radius: 15px;
+  animation: hover 400ms ease-out forwards;
 }
 
-.topnav a.active {
-  background-color: #ff0000;
-  color: #ffffff;
-  border-radius: 15px;
+@keyframes hover{
+  from {opacity : 0}
+  to {opacity : 1}
 }
 
 .topnav .icon {
   display: none;
 }
 
-@media screen and (max-width: 1125px) {
-  .topnav a {display: none;}
-  .topnav a.icon {
-    float: right;
-    display: block;
-  }
+.fa{
+  color : #FF001B;
 }
 
-@media screen and (max-width: 1125px) {
-  .topnav.responsive {position: relative;}
-  .topnav.responsive .icon {
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-  .topnav.responsive a {
-    float: none;
-    display: block;
-    text-align: left;
-  }
+.fa:hover{
+  color: white;
 }
-
-
-
- @media screen and (max-width: 540px) {
-  .topnav a {display: none;}
-  .topnav a.icon {
-    float: right;
-    display: block;
-    margin-top: -15px;
-  }
-} 
 
 main {
   font-size: 130%;
@@ -166,7 +145,7 @@ main {
   height: 100%;
   width: 100%;
   overflow: auto;
-  background-color: rgba(26, 39, 156, 0.4);
+  background-color:white;
 }
 
 .content {
@@ -226,12 +205,12 @@ input {
 .formData[data-error-visible="true"] .text-control {
   border: 2px solid #e54858;
 }
-/* 
+/*
 input[data-error]::after {
     content: attr(data-error);
     font-size: 0.4em;
     color: red;
-} */
+}*/
 .checkbox-label,
 .checkbox2-label {
   position: relative;
@@ -333,6 +312,11 @@ input[data-error]::after {
   cursor: pointer;
   border: 0;
 }
+
+#confirmationMsg{
+transform: translateY(-320px);
+}
+
 /* custom select styles */
 .custom-select {
   position: relative;
@@ -436,7 +420,7 @@ input[data-error]::after {
   z-index: 1;
 }
 .hero-headline {
-  font-size: 6rem;
+  font-size: 5rem;
   font-weight: normal;
   white-space: nowrap;
 }
@@ -478,7 +462,41 @@ footer {
   padding-right: 2vw;
   margin: 0 20px;
 }
-@media screen and (max-width: 800px) {
+
+@keyframes modalopen {
+  from {
+    opacity: 0;
+    transform: translateY(-150px);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 1125px) {
+  .topnav.responsive {
+    position: relative;
+  }
+  .topnav.responsive .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .topnav.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  .topnav a {
+    display: none;
+  }
+  .topnav a.icon {
+    float: right;
+    display: block;
+  }
+}
+
+@media screen and (max-width: 1000px) {
   .hero-section {
     display: block;
     box-shadow: unset;
@@ -487,6 +505,7 @@ footer {
     background: #fff;
     color: #000;
     padding: 20px;
+    min-width: 0;
   }
   .hero-content::after {
     content: unset;
@@ -497,6 +516,8 @@ footer {
   .hero-headline {
     font-size: 4.5rem;
     white-space: normal;
+    font-weight: bold;
+    text-align: center;
   }
   .hero-text {
     width: unset;
@@ -517,13 +538,43 @@ footer {
   }
 }
 
-@keyframes modalopen {
-  from {
-    opacity: 0;
-    transform: translateY(-150px);
+@media screen and (max-width: 540px) {
+  .topnav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
-  to {
-    opacity: 1;
+  .topnav a {
+    display: none;
+    color: black;
   }
-}
+  .topnav a.icon {
+    float: right;
+    display: block;
+  }
+  .topnav a.active {
+    border-radius: 15px;
+  }
+  .topnav.responsive {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .navlinks{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .header-logo {
+    width: 70%;
+  }
+  .header-logo img{
+    width: 80%;
+    padding: 1rem;
+  }
+  .hero-headline{
+    font-size: 3rem;
+    font-weight: bold;
+  }
+} 
+
 

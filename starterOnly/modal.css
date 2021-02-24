@@ -52,27 +52,27 @@ img {
   font-family: Roboto, sans-serif;
 }
 
-.topnav a:hover {
-  background-color: #FF001B;
-  color: #ffffff;
-  border-radius: 15px;
-}
-
 .main-navbar span:hover{
   border-bottom: 2px solid white;
 }
 
-.topnav a.active {
+.topnav a:hover {
   background-color: #ff0000;
   color: #ffffff;
   border-radius: 15px;
+  animation: hover 400ms ease-out forwards;
+}
+
+@keyframes hover{
+  from {opacity : 0}
+  to {opacity : 1}
 }
 
 .topnav .icon {
   display: none;
 }
 
-.fa {
+.fa{
   color : #FF001B;
 }
 
@@ -145,7 +145,7 @@ main {
   height: 100%;
   width: 100%;
   overflow: auto;
-  background-color: rgba(26, 39, 156, 0.4);
+  background-color:white;
 }
 
 .content {
@@ -474,7 +474,9 @@ footer {
 }
 
 @media screen and (max-width: 1125px) {
-  .topnav.responsive {position: relative;}
+  .topnav.responsive {
+    position: relative;
+  }
   .topnav.responsive .icon {
     position: absolute;
     right: 0;
@@ -485,7 +487,9 @@ footer {
     display: block;
     text-align: left;
   }
-  .topnav a {display: none;}
+  .topnav a {
+    display: none;
+  }
   .topnav a.icon {
     float: right;
     display: block;
@@ -513,6 +517,7 @@ footer {
     font-size: 4.5rem;
     white-space: normal;
     font-weight: bold;
+    text-align: center;
   }
   .hero-text {
     width: unset;
@@ -548,8 +553,16 @@ footer {
     display: block;
   }
   .topnav a.active {
-    color: #ffffff;
     border-radius: 15px;
+  }
+  .topnav.responsive {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .navlinks{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
   .header-logo {
     width: 70%;
@@ -559,7 +572,7 @@ footer {
     padding: 1rem;
   }
   .hero-headline{
-    font-size: 2rem;
+    font-size: 3rem;
     font-weight: bold;
   }
 } 
