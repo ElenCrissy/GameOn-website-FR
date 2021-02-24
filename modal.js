@@ -17,6 +17,7 @@ const form = document.getElementById("reserve");
 const closeBtnRed = document.getElementById("closeBtnRed");
 const confirmationMsg = document.getElementById("confirmationMsg");
 
+// DOM Elements for each input and error
 const first = document.getElementById("first");
 const firstError = document.getElementById("firstError");
 
@@ -39,6 +40,10 @@ const conditions = document.getElementById("checkbox1");
 const conditionsError = document.getElementById("conditionsError");
 
 
+const heroSection = document.querySelector('.hero-section');
+
+
+
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -46,21 +51,24 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
-  //header should be displayed when media query mobile !!!!!!!!!!!!!!!!!!!!!!!
-  let myTopnav = document.getElementById('myTopnav');
-  if(window.matchMedia("(max-width:540px)").matches) {
-    myTopnav.style.display = "block";
+  // variable mobile media query
+  let mediaQueryMobile = window.matchMedia("(max-width: 540px)");
+  // if mobile screen, heroSection doesn't appear
+  if(mediaQueryMobile.matches){
+    heroSection.style.display = "none";
   }
+
 }
 
-//#1 close modal event
+// close modal event
 closeBtn.addEventListener("click", closeModal);
 // close modal form
 function closeModal() {
   modalbg.style.display = "none";
+  heroSection.style.display = "block";
 }
 
-// button close and confirmation text not displayed
+// button close and confirmation message not displayed
 closeBtnRed.style.display = "none";
 confirmationMsg.style.display = "none";
 
@@ -69,7 +77,7 @@ let formOk = false;
 // inputs check + error message and its style
 function checkInputs(){
   
-  // if first.value is empty and doesn't respect regex name, or first lenght is less than 2 characters
+  // if first.value is empty and doesn't respect regex name, or first.length is less than 2 characters
   // then error message is displayed
   let verifName = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/;
   if(verifName.exec(first.value) === null || first.length < 2) {
@@ -96,7 +104,7 @@ function checkInputs(){
     last.style = "default";
   }
 
-  // regex for email address
+  // if email doesn't correspond to regex => error
   let verifEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
   if(verifEmail.exec(email.value) === null) {
     emailError.textContent = "Veuillez renseigner votre adresse mail";
@@ -160,7 +168,7 @@ function checkInputs(){
   return formOk = true;
 }
 
-// focus on next input when key 13 pressed !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/* focus on next input when key 13 pressed
 document.querySelectorAll('input').forEach( input => {
   input.addEventListener('keypress', e => {
       if(e.keypress === 13) {
@@ -171,7 +179,7 @@ document.querySelectorAll('input').forEach( input => {
           }
       }
   });
-});
+}); */
 
 // function called at form submit event
 function validate(event){
@@ -181,16 +189,16 @@ function validate(event){
   // run checkInputs function instead
   checkInputs();
 
-  // all fields must be true so the form can be submitted correctly
-  // if so, confirmation text and red close button are displayed
+  // all inputs must be true so the form can be submitted correctly
+  // if so, confirmation message and red close button are displayed
   if(formOk === true) {
-    form.style.visibility = "hidden"; 
-    confirmationMsg.style.fontSize = "36px";
+    form.style.display = "none"; 
+    confirmationMsg.style.fontSize = "30px";
     confirmationMsg.style.textAlign = "center";
 
     closeBtnRed.style.display = "block";
     submitBtn.style.display = "none";
-    confirmationMsg.style.display = "block";
+    confirmationMsg.style.display = "flex";
     closeBtnRed.addEventListener("click", closeModal);
     return true;
   }
@@ -198,4 +206,7 @@ function validate(event){
 
 // listening submit event on form element so function validate is run
 form.addEventListener("submit", validate);
+
+
+
 
